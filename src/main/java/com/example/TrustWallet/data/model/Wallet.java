@@ -12,10 +12,11 @@ public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private BigDecimal amount;
+    private BigDecimal amount = BigDecimal.valueOf(0);
     @OneToOne
     private User user;
     private String accountNumber;
+    private String password;
 
 
 }

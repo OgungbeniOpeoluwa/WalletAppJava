@@ -58,16 +58,18 @@ public class TransactionServiceTest {
         assertThat(transaction.getStatus()).isEqualTo(PaymentStatus.SUCCESSFUL);
 
     }
-//    @Test
-//    @Sql(scripts = {"/scripts/insert.sql"})
-//    public void testRetrieveAllTransactionByWalletId(){
-//        CreateTransactionRequest request = new CreateTransactionRequest();
-//        request.setAmount(BigDecimal.valueOf(1000));
-//        request.setDescription("hair money");
-//        request.setWalletId(201L);
-//        request.setPaymentType(PaymentType.CREDIT);
-//        Transaction  transaction = transactionService.createTransaction(request);
-//        List<Transaction> allTransaction = transactionService.GetAllByWallet(200L);
-//        assertThat(allTransaction.size()).isEqualTo(1);
-//    }
+    @Test
+    @Sql(scripts = {"/scripts/insert.sql"})
+    public void testGetByReference(){
+        CreateTransactionRequest request = new CreateTransactionRequest();
+        request.setAmount(BigDecimal.valueOf(1000));
+        request.setDescription("hair money");
+        request.setWalletId(201L);
+        request.setPaymentType(PaymentType.CREDIT);
+        request.setReference("4532tedoty");
+        Transaction  transaction = transactionService.createTransaction(request);
+        Transaction req = transactionService.findById(transaction.getId());
+        assertThat(req.getId()).isEqualTo(transaction.getId());
+
+    }
 }

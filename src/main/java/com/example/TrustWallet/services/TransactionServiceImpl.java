@@ -6,6 +6,7 @@ import com.example.TrustWallet.data.model.Wallet;
 import com.example.TrustWallet.data.repository.TransactionRepository;
 import com.example.TrustWallet.dto.request.CreateTransactionRequest;
 import com.example.TrustWallet.dto.request.UpdateTransactionRequest;
+import com.example.TrustWallet.dto.response.TransactionResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,16 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public Transaction updateTransactionStatus(UpdateTransactionRequest updateTransactionRequest) {
         Transaction transaction = findById(updateTransactionRequest.getId());
-        transaction.setStatus(updateTransactionRequest.getStatus());
+        if (updateTransactionRequest.getStatus() != null)transaction.setStatus(updateTransactionRequest.getStatus());
         transaction = repository.save(transaction);
         return transaction;
     }
 
     @Override
-    public List<Transaction> GetAllByWalletId(Wallet walletId) {
-        return repository.findByWallet(walletId);
+    public List<TransactionResponse> GetAllByWalletId(Wallet walletId) {
+        List<Transaction> transactions =  repository.findByWallet(walletId);
+       return transactions.stream().map((x)->mapper.map(x, TransactionResponse.class))
+                .toList();
     }
+
 }

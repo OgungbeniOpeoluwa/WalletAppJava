@@ -3,10 +3,9 @@ package com.example.TrustWallet.services;
 import com.example.TrustWallet.data.model.User;
 import com.example.TrustWallet.data.repository.UserRepository;
 import com.example.TrustWallet.dto.request.CreateUserRequest;
-import com.example.TrustWallet.dto.request.UserExistException;
+import com.example.TrustWallet.Exception.UserExistException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

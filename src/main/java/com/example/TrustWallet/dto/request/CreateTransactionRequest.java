@@ -19,4 +19,5 @@ public class CreateTransactionRequest {
     private BigDecimal Amount;
     private PaymentType paymentType;
     private PaymentStatus paymentStatus;
+    private String reference;
 }

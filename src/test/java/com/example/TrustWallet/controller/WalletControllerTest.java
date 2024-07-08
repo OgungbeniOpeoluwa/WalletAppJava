@@ -1,11 +1,7 @@
 package com.example.TrustWallet.controller;
 
 import com.example.TrustWallet.dto.request.CreateAccountRequest;
-import com.example.TrustWallet.dto.request.CreateTransactionRequest;
-import com.example.TrustWallet.dto.request.InitializeTransaction;
-import com.example.TrustWallet.dto.response.CreateAccountResponse;
-import com.example.TrustWallet.dto.response.InitializeTransactionResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.TrustWallet.dto.request.CreatePaymentInitializeRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -36,7 +33,7 @@ public class WalletControllerTest {
 
     public void testCreateAccount() throws Exception {
         CreateAccountRequest request = new CreateAccountRequest();
-        request.setLastname("opeoluwa");
+        request.setLastName("opeoluwa");
         request.setFirstName("shola");
         request.setPhoneNumber("07898883774");
         request.setEmail("ope@gmail.com");
@@ -48,21 +45,27 @@ public class WalletControllerTest {
     }
 
     @Test
+    @Sql(scripts = {"/scripts/insert.sql"})
     public void testInitializeTransaction()throws Exception{
-//        CreateAccountRequest request = new CreateAccountRequest();
-//        request.setLastname("opeoluwa");
-//        request.setFirstName("shola");
-//        request.setPhoneNumber("07898883774");
-//        request.setEmail("ope@gmail.com");
-        InitializeTransaction req = new InitializeTransaction();
-        req.setAmount(BigDecimal.valueOf(1000));
+        CreatePaymentInitializeRequest req = new CreatePaymentInitializeRequest();
+        req.setAmount(1000);
         req.setDescription("my hair");
-        req.setAccountNumber("07898883774");
+        req.setAccountNumber("07066221008");
         req.setPaymentMedium("PAYSTACK");
+        req.setCurrency("NGN");
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/wallet/initialize-transaction")
-                        .content(mapper.writeValueAsBytes(req))
+                        .content(mapper.writeValueAsString(req))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).
                 andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    @Sql(scripts = {"/scripts/insert.sql"})
+    public void testGetBalance() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/wallet/balance/07066221008")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
     }
 }

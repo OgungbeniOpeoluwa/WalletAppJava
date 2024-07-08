@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 public class PaystackTransactionRequest {
     private BigDecimal amount;
     private String  email;
-    private  String ref;
+    private  String reference;
 }

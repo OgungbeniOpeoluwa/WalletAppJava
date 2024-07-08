@@ -2,14 +2,15 @@ package com.example.TrustWallet.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Setter
 @Getter
 @AllArgsConstructor
-public class InitializeTransactionResponse {
-    private String url;
-    private String message;
-    private String reference;
-
+@NoArgsConstructor
+public class GetBalanceResponse {
+    private BigDecimal balance;
 }

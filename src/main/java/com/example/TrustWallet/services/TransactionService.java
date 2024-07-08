@@ -4,6 +4,7 @@ import com.example.TrustWallet.data.model.Transaction;
 import com.example.TrustWallet.data.model.Wallet;
 import com.example.TrustWallet.dto.request.CreateTransactionRequest;
 import com.example.TrustWallet.dto.request.UpdateTransactionRequest;
+import com.example.TrustWallet.dto.response.TransactionResponse;
 
 import java.util.List;
 
@@ -14,5 +15,6 @@ public interface TransactionService {
 
     Transaction updateTransactionStatus(UpdateTransactionRequest updateTransactionRequest);
 
-    List<Transaction> GetAllByWalletId(Wallet wallet);
+    List<TransactionResponse> GetAllByWalletId(Wallet wallet);
+
 }

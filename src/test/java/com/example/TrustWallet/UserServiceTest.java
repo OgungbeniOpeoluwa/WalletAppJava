@@ -2,7 +2,7 @@ package com.example.TrustWallet;
 
 import com.example.TrustWallet.data.model.User;
 import com.example.TrustWallet.dto.request.CreateUserRequest;
-import com.example.TrustWallet.dto.request.UserExistException;
+import com.example.TrustWallet.Exception.UserExistException;
 import com.example.TrustWallet.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

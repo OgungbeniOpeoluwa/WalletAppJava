@@ -31,7 +31,7 @@ public class MonifyPaymentServiceTest {
         body.setCustomerName("opeoluwa");
         body.setCurrencyCode("NGN");
         body.setPaymentDescription("my hair payment");
-        body.setPaymentReference("7f46a2c79b63ci4e688dbf987c5d99b2b99");
+        body.setPaymentReference("7f46a2c7ci4e68bf987c5d99b2b989");
         body.setContractCode(baseConfig.getContractCode());
         request.setT(body);
         InitializeTransactionResponse res = monifyPaymentService.InitializeTransaction(request);
